@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mis reservas | HSBarber</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body data-page="cliente">
+  <nav class="nav">
+    <a class="logo" href="index.html">HSBarber</a>
+    <div class="nav-links" id="nav-links"></div>
+  </nav>
+
+  <section class="card">
+    <h2>Nueva reserva</h2>
+    <div id="aviso"></div>
+    <form id="form-reserva">
+      <div class="grid">
+        <div>
+          <label>Nombre</label>
+          <input name="nombre" required />
+        </div>
+        <div>
+          <label>Teléfono</label>
+          <input name="telefono" required />
+        </div>
+        <div>
+          <label>Email</label>
+          <input name="email" type="email" />
+        </div>
+        <div>
+          <label>Servicio</label>
+          <select name="servicio" id="sel-servicio" required></select>
+        </div>
+        <div>
+          <label>Barbero</label>
+          <select name="barberoId" id="sel-barbero" required></select>
+        </div>
+        <div>
+          <label>Fecha</label>
+          <input name="fecha" type="date" required />
+        </div>
+        <div>
+          <label>Hora</label>
+          <select name="hora" id="sel-hora" required></select>
+        </div>
+      </div>
+      <button type="submit">Reservar</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Mis reservas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cita</th>
+          <th>Servicio</th>
+          <th>Barbero</th>
+          <th>Cliente</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tabla"></tbody>
+    </table>
+  </section>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/chatbot.js"></script>
+</body>
+</html>

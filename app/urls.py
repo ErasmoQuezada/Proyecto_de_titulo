@@ -1,0 +1,36 @@
+from django.urls import path
+from .views import (
+    bootstrap,
+    available_slots,
+    chat,
+    create_barber,
+    create_service,
+    frontend_page,
+    home,
+    login_user,
+    logout_user,
+    register,
+    reservations,
+    update_reservation,
+)
+
+urlpatterns = [
+    path('', home, name="home"),
+    path('index.html', home, name='index'),
+    path('api/chat/', chat, name="chat"),
+    path('login.html', frontend_page, {'page': 'login'}, name='login'),
+    path('registro.html', frontend_page, {'page': 'registro'}, name='registro'),
+    path('login-staff.html', frontend_page, {'page': 'login-staff'}, name='login-staff'),
+    path('panel-cliente.html', frontend_page, {'page': 'panel-cliente'}, name='panel-cliente'),
+    path('panel-barbero.html', frontend_page, {'page': 'panel-barbero'}, name='panel-barbero'),
+    path('panel-admin.html', frontend_page, {'page': 'panel-admin'}, name='panel-admin'),
+    path('api/bootstrap/', bootstrap, name='api-bootstrap'),
+    path('api/availability/', available_slots, name='api-availability'),
+    path('api/register/', register, name='api-register'),
+    path('api/login/', login_user, name='api-login'),
+    path('api/logout/', logout_user, name='api-logout'),
+    path('api/reservations/', reservations, name='api-reservations'),
+    path('api/reservations/<int:reservation_id>/', update_reservation, name='api-update-reservation'),
+    path('api/barbers/', create_barber, name='api-create-barber'),
+    path('api/services/', create_service, name='api-create-service'),
+]

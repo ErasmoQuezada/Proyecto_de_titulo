@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | HSBarber</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body data-page="admin">
+  <nav class="nav">
+    <a class="logo" href="index.html">HSBarber</a>
+    <div class="nav-links" id="nav-links"></div>
+  </nav>
+
+  <section class="card">
+    <h2>Todas las reservas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cita</th>
+          <th>Servicio</th>
+          <th>Barbero</th>
+          <th>Cliente</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tabla"></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Barberos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-barberos"></tbody>
+    </table>
+    <h3>Alta de barbero</h3>
+    <div id="aviso-barbero"></div>
+    <form id="form-barbero">
+      <div class="grid">
+        <div>
+          <label>Nombre</label>
+          <input name="nombre" required />
+        </div>
+        <div>
+          <label>Teléfono</label>
+          <input name="telefono" required />
+        </div>
+        <div>
+          <label>Email</label>
+          <input name="email" type="email" required />
+        </div>
+        <div>
+          <label>Contraseña</label>
+          <input name="password" type="password" required minlength="8" />
+        </div>
+      </div>
+      <button type="submit">Crear barbero</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Nuevo servicio</h2>
+    <div id="aviso-servicio"></div>
+    <form id="form-servicio">
+      <div class="grid">
+        <div>
+          <label>Nombre</label>
+          <input name="nombre" required />
+        </div>
+        <div>
+          <label>Minutos</label>
+          <input name="minutos" type="number" min="10" value="30" required />
+        </div>
+      </div>
+      <button type="submit">Agregar servicio</button>
+    </form>
+  </section>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/chatbot.js"></script>
+</body>
+</html>

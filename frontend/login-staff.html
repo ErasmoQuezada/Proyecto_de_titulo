@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login staff | HSBarber</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body data-page="login-staff">
+  <nav class="nav">
+    <a class="logo" href="index.html">HSBarber</a>
+    <div class="nav-links" id="nav-links"></div>
+  </nav>
+  <section class="wrap">
+    <h2>Ingreso de barbero y administrador</h2>
+    <div class="hint">
+      Cuentas de prueba:<br>
+      Admin: admin@hsbarber.com / admin123<br>
+      Barbero: barbero@hsbarber.com / barbero123
+    </div>
+    <div id="aviso"></div>
+    <form id="f">
+      <label>Email</label>
+      <input name="email" type="email" required />
+      <label>Contraseña</label>
+      <input name="password" type="password" required />
+      <button>Entrar</button>
+    </form>
+    <p>¿Eres cliente? <a href="login.html">Ingresa aquí</a></p>
+  </section>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/chatbot.js"></script>
+</body>
+</html>
