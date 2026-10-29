@@ -11,6 +11,7 @@ from .views import (
     logout_user,
     register,
     reservations,
+    reviews,
     update_reservation,
 )
 
@@ -31,6 +32,7 @@ urlpatterns = [
     path('api/logout/', logout_user, name='api-logout'),
     path('api/reservations/', reservations, name='api-reservations'),
     path('api/reservations/<int:reservation_id>/', update_reservation, name='api-update-reservation'),
+    path('api/reviews/', reviews, name='api-reviews'),
     path('api/barbers/', create_barber, name='api-create-barber'),
     path('api/services/', create_service, name='api-create-service'),
 ]

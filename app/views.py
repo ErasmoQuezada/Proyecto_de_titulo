@@ -20,7 +20,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 
-from .models import Profile, Reservation, Service
+from .models import Profile, Reservation, Review, Service
 
 logger = logging.getLogger(__name__)
 RESERVATION_HOURS = (
@@ -84,6 +84,16 @@ def reservation_data(reservation):
     }
 
 
+def review_data(review):
+    return {
+        "id": review.id,
+        "nombre": review.name,
+        "calificacion": review.rating,
+        "comentario": review.comment,
+        "fecha": review.created_at.strftime("%d/%m/%Y"),
+    }
+
+
 def role_required(*roles):
     def decorator(view):
         @wraps(view)
@@ -121,6 +131,30 @@ def bootstrap(request):
             for profile in Profile.objects.filter(role=Profile.Role.BARBER).select_related("user")
         ],
     })
+
+
+@require_http_methods(["GET", "POST"])
+def reviews(request):
+    if request.method == "GET":
+        records = Review.objects.all()[:20]
+        return JsonResponse({"resenas": [review_data(item) for item in records]})
+
+    payload, error = parse_json(request)
+    if error:
+        return error
+    name = payload.get("nombre", "").strip() if isinstance(payload.get("nombre"), str) else ""
+    comment = payload.get("comentario", "").strip() if isinstance(payload.get("comentario"), str) else ""
+    rating = payload.get("calificacion")
+    if not name or len(name) > 150 or not comment or len(comment) > 1000:
+        return JsonResponse({"error": "Escribe tu nombre y una opinión de hasta 1000 caracteres."}, status=400)
+    try:
+        rating = int(rating)
+    except (TypeError, ValueError):
+        return JsonResponse({"error": "Selecciona una calificación válida."}, status=400)
+    if rating not in range(1, 6):
+        return JsonResponse({"error": "La calificación debe estar entre 1 y 5 estrellas."}, status=400)
+    review = Review.objects.create(name=name, rating=rating, comment=comment)
+    return JsonResponse({"resena": review_data(review)}, status=201)
 
 
 @require_POST

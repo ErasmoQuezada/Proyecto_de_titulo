@@ -208,6 +208,56 @@ function ordenarReservas(items) {
 async function initHome() {
   const form = document.getElementById("form-reserva");
   if (form) prepararFormReserva(form);
+  await initReviews();
+}
+
+function mostrarResenas(items) {
+  const list = document.getElementById("lista-resenas");
+  if (!list) return;
+  list.innerHTML = items.length
+    ? items.map((item) => `
+      <article class="review">
+        <div class="review-header">
+          <strong>${escapar(item.nombre)}</strong>
+          <span class="review-rating" aria-label="${item.calificacion} de 5 estrellas">${"★".repeat(item.calificacion)}<span>${"★".repeat(5 - item.calificacion)}</span></span>
+        </div>
+        <p>${escapar(item.comentario)}</p>
+        <small>${escapar(item.fecha)}</small>
+      </article>
+    `).join("")
+    : '<p class="muted">Aún no hay reseñas. ¡Sé el primero en compartir tu experiencia!</p>';
+}
+
+async function initReviews() {
+  const form = document.getElementById("form-resena");
+  if (!form) return;
+  const cargar = async () => {
+    const data = await api("/api/reviews/");
+    mostrarResenas(data.resenas);
+  };
+  try {
+    await cargar();
+  } catch (error) {
+    mostrarAviso(document.getElementById("aviso-resena"), "err", error.message);
+  }
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const submit = form.querySelector("button[type='submit']");
+    submit.disabled = true;
+    try {
+      await api("/api/reviews/", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      mostrarAviso(document.getElementById("aviso-resena"), "ok", "Gracias por compartir tu opinión.");
+      form.reset();
+      await cargar();
+    } catch (error) {
+      mostrarAviso(document.getElementById("aviso-resena"), "err", error.message);
+    } finally {
+      submit.disabled = false;
+    }
+  });
 }
 
 function initRegistro() {

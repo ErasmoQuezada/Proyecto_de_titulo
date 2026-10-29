@@ -220,6 +220,12 @@ a:hover {
   font-weight: 400;
 }
 
+.hero-description {
+  color: var(--gris-claro) !important;
+  font-size: 18px !important;
+  margin-bottom: 12px;
+}
+
 .wrap h1 {
   font-size: 32px;
   font-weight: 800;
@@ -290,6 +296,55 @@ textarea {
   margin-bottom: 18px;
 
   font-family: inherit;
+}
+
+.reviews-section {
+  margin-top: 32px;
+}
+
+.review-form {
+  margin-bottom: 28px;
+}
+
+.reviews-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.review {
+  padding: 18px;
+  border: 1px solid var(--borde-sutil);
+  border-radius: 14px;
+  background: var(--superficie-2);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.review p {
+  color: var(--gris-claro);
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.review small {
+  color: var(--gris);
+}
+
+.review-rating {
+  color: var(--dorado);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.review-rating span {
+  color: var(--gris);
 }
 
 input,
@@ -729,7 +784,8 @@ tbody tr:hover {
 
 @media (max-width: 760px) {
   .grid,
-  .grid-3 {
+  .grid-3,
+  .reviews-list {
     grid-template-columns: 1fr;
   }
 

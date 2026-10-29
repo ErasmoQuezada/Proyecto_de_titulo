@@ -10,7 +10,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.staticfiles import finders
 
-from .models import Profile, Reservation, Service
+from .models import Profile, Reservation, Review, Service
 
 
 class FrontendRouteTests(TestCase):
@@ -117,6 +117,45 @@ class ChatApiTests(TestCase):
             response.json()["reply"],
             "Precios de referencia: corte $10000, barba $6000 y corte + barba $14000.",
         )
+
+
+class ReviewApiTests(TestCase):
+    def test_guest_can_list_reviews(self):
+        Review.objects.create(name="Ana", rating=5, comment="Excelente atención.")
+
+        response = self.client.get(reverse("api-reviews"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["resenas"][0]["calificacion"], 5)
+        self.assertEqual(response.json()["resenas"][0]["nombre"], "Ana")
+
+    def test_guest_can_create_review(self):
+        response = self.client.post(
+            reverse("api-reviews"),
+            data=json.dumps({
+                "nombre": "Carlos",
+                "calificacion": 4,
+                "comentario": "Muy buen corte y excelente servicio.",
+            }),
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Review.objects.get().rating, 4)
+
+    def test_review_rejects_invalid_rating(self):
+        response = self.client.post(
+            reverse("api-reviews"),
+            data=json.dumps({
+                "nombre": "Carlos",
+                "calificacion": 6,
+                "comentario": "Comentario inválido.",
+            }),
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(Review.objects.count(), 0)
 
 
 class ReservationApiTests(TestCase):

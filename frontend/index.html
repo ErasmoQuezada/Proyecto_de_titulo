@@ -14,6 +14,7 @@
 
   <section class="hero">
     <h1>Reserva tu corte</h1>
+    <p class="hero-description">Barbería para hombres, con barberos de años de experiencia y un servicio pensado para que salgas con tu mejor estilo.</p>
     <p class="muted">Puedes reservar sin registrarte. Si tienes cuenta, inicia sesión para ver y cancelar tus reservas.</p>
   </section>
 
@@ -53,6 +54,35 @@
       </div>
       <button type="submit">Reservar</button>
     </form>
+  </section>
+
+  <section class="card reviews-section">
+    <h2>Reseñas de nuestros clientes</h2>
+    <p class="muted">Cuéntanos cómo fue tu experiencia en HSBarber.</p>
+    <div id="aviso-resena"></div>
+    <form id="form-resena" class="review-form">
+      <div class="grid">
+        <div>
+          <label for="resena-nombre">Nombre</label>
+          <input id="resena-nombre" name="nombre" maxlength="150" required />
+        </div>
+        <div>
+          <label for="resena-calificacion">Calificación</label>
+          <select id="resena-calificacion" name="calificacion" required>
+            <option value="">Elige una calificación</option>
+            <option value="5">★★★★★ Excelente</option>
+            <option value="4">★★★★ Muy buena</option>
+            <option value="3">★★★ Buena</option>
+            <option value="2">★★ Regular</option>
+            <option value="1">★ Por mejorar</option>
+          </select>
+        </div>
+      </div>
+      <label for="resena-comentario">Tu opinión</label>
+      <textarea id="resena-comentario" name="comentario" maxlength="1000" required></textarea>
+      <button type="submit">Publicar reseña</button>
+    </form>
+    <div id="lista-resenas" class="reviews-list" aria-live="polite"></div>
   </section>
 
   <p class="footer">HSBarber · Corte, barba y estilo</p>
